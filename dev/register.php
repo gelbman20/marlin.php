@@ -1,6 +1,20 @@
 <?php
   $page_title = "Sign In";
-  include_once "template-parts/header.php"
+  include_once "template-parts/header.php";
+
+  // Configuration
+  $server_name = "localhost";
+  $user_name = "root";
+  $user_password = "";
+  $db_name = "marlin_db";
+
+  $conn = new mysqli($server_name, $user_name, $user_password, $db_name);
+
+  if ( $conn->connect_error ) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  echo "Connection successfully";
 ?>
 
 <main class="py-4">
