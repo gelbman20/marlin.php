@@ -15,7 +15,7 @@
           <div class="card-header"><h3>Комментарии</h3></div>
 
           <div class="card-body">
-            <div class="alert alert-success" role="alert">
+            <div id="comment-alert" class="alert alert-success" role="alert">
               Комментарий успешно добавлен
             </div>
             <div id="comments"></div>

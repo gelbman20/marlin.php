@@ -1,0 +1,22 @@
+/*
+ * Custom Styles
+*/
+.alert {
+  position: fixed;
+  top: 20vh;
+  left: 50%;
+  transform: translate(-50%, -20px);
+  max-width: 50vw;
+  width: 100%;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: .3s ease-out all;
+}
+
+.alert.active {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+}

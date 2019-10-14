@@ -15,7 +15,8 @@
     isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
 
     plugins = {
-      commentForm: $('#comments-form')
+      commentForm: $('#comments-form'),
+      commentAlert: $('#comment-alert')
     };
 
   $(function () {
@@ -83,6 +84,12 @@
             });
 
             commentsContent.html(html);
+
+            plugins.commentAlert.addClass('active');
+
+            setTimeout(function () {
+              plugins.commentAlert.removeClass('active');
+            }, 1000);
 
             form.find('#userName').val('');
             form.find('#userText').val('');
