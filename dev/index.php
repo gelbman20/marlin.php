@@ -1,6 +1,33 @@
 <?php
   $page_title = "Home";
-  include_once "template-parts/header.php"
+  include_once "template-parts/header.php";
+
+  $comments = [
+    [
+      'user' => 'John Doe',
+      'avatar' => 'img/no-user.jpg',
+      'time' => '12/10/2025',
+      'text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe aspernatur, ullam doloremque deleniti, sequi obcaecati.'
+    ],
+    [
+      'user' => 'Andrew Helever',
+      'avatar' => 'img/no-user.jpg',
+      'time' => '14/10/2025',
+      'text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe aspernatur, ullam doloremque deleniti, sequi obcaecati.'
+    ],
+    [
+      'user' => 'Vika Neveri',
+      'avatar' => 'img/no-user.jpg',
+      'time' => '14/10/2025',
+      'text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe aspernatur, ullam doloremque deleniti, sequi obcaecati.'
+    ],
+    [
+      'user' => 'Max Parshyn',
+      'avatar' => 'img/no-user.jpg',
+      'time' => '15/10/2025',
+      'text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe aspernatur, ullam doloremque deleniti, sequi obcaecati.'
+    ]
+  ];
 ?>
 
 <main class="py-4">
@@ -14,18 +41,16 @@
             <div class="alert alert-success" role="alert">
               Комментарий успешно добавлен
             </div>
-
-            <div class="media">
-              <img src="img/no-user.jpg" class="mr-3" alt="..." width="64" height="64">
-              <div class="media-body">
-                <h5 class="mt-0">John Doe</h5>
-                <span><small>12/10/2025</small></span>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe aspernatur, ullam doloremque deleniti,
-                  sequi obcaecati.
-                </p>
+            <?php foreach ($comments as $comment): ?>
+              <div class="media">
+                <img src="<?= $comment['avatar']; ?>" class="mr-3" alt="..." width="64" height="64">
+                <div class="media-body">
+                  <h5 class="mt-0"><?= $comment['user']; ?></h5>
+                  <span><small><?= $comment['time']; ?></small></span>
+                  <p><?= $comment['text']; ?></p>
+                </div>
               </div>
-            </div>
+            <?php endforeach; ?>
           </div>
         </div>
       </div>
