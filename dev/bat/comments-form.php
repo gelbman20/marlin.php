@@ -20,6 +20,10 @@
   $res = array();
 
   foreach ($data as $row) {
+    // Format Date
+    $date_time =  strtotime($row['date_time']);
+    $row['date_time'] = date("d/m/Y", $date_time);
+
     $res[] = $row;
   }
 
