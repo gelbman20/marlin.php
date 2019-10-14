@@ -1,6 +1,8 @@
 /*
  * Custom Styles
 */
+
+/* Alerts */
 .alert {
   position: fixed;
   top: 20vh;
@@ -19,4 +21,9 @@
   opacity: 1;
   transform: translate(-50%, 0);
   pointer-events: auto;
+}
+
+/* From Inputs */
+.form-control.has-error {
+  border-color: palevioletred;
 }

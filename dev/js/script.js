@@ -60,6 +60,13 @@
       });
     }
 
+    // Validate Input
+    function inputValidation(input) {
+      !input.val() ? input.addClass('has-error') : input.removeClass('has-error');
+      console.log(input, !input);
+      return !input.val();
+    }
+
     for (var i = 0; i < plugins.commentForm.length; i++) {
 
       var form = $(plugins.commentForm[i]);
@@ -69,6 +76,16 @@
       // Add new comment after the form was submitted
       form.submit(function (e) {
         e.preventDefault();
+
+        var inputName = form.find('#userName');
+        var inputText = form.find('#userText');
+
+        inputValidation(inputName);
+        inputValidation(inputText);
+
+        if ( inputValidation(inputName) || inputValidation(inputText) ) {
+          return false
+        }
 
         $.ajax({
           type: 'POST',
@@ -91,8 +108,11 @@
               plugins.commentAlert.removeClass('active');
             }, 1000);
 
-            form.find('#userName').val('');
-            form.find('#userText').val('');
+            inputName.val('');
+            inputText.val('');
+
+            inputName.removeClass('has-error');
+            inputText.removeClass('has-error');
           }
         })
       });
