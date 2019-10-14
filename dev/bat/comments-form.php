@@ -15,7 +15,7 @@
   // Ajax request
   $pdo  = new PDO($dsn, $db_user_name, $db_user_password, $options);
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $data = $pdo->query('SELECT * FROM comments');
+  $data = $pdo->query( "SELECT * FROM comments ORDER BY `id` DESC");
 
   $res = array();
 
