@@ -4,6 +4,7 @@
 
 /* Alerts */
 .alert {
+  z-index: 1001;
   position: fixed;
   top: 20vh;
   left: 50%;

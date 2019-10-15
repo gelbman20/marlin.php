@@ -11,18 +11,26 @@
           <div class="card-header">Register</div>
 
           <div class="card-body">
-            <form method="POST" action="bat/register-form.php">
+
+            <div id="register-success-alert" class="alert alert-success" role="alert">
+              Аккаунт успешно добавлен
+            </div>
+
+            <div id="register-danger-alert" class="alert alert-danger" role="alert">
+              Пароли не совпадают
+            </div>
+
+            <form id="register-form" action="bat/register-form.php" method="post">
 
               <div class="form-group row">
-                <label for="name"  class="col-md-4 col-form-label text-md-right">Name</label>
+                <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
                 <div class="col-md-6">
-                  <input id="name" type="text" class="form-control" name="name"
-                         autofocus>
+                  <input id="name" type="text" class="form-control" name="name">
 
-<!--                  <span class="invalid-feedback" role="alert">-->
-<!--                                                    <strong>Ошибка валидации</strong>-->
-<!--                                                </span>-->
+                  <!--                  <span class="invalid-feedback" role="alert">-->
+                  <!--                                                    <strong>Ошибка валидации</strong>-->
+                  <!--                                                </span>-->
                 </div>
               </div>
 
@@ -38,8 +46,7 @@
                 <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
                 <div class="col-md-6">
-                  <input id="password" type="password" class="form-control " name="password"
-                         autocomplete="new-password">
+                  <input id="password" type="password" class="form-control " name="password" >
                 </div>
               </div>
 
@@ -47,8 +54,7 @@
                 <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
 
                 <div class="col-md-6">
-                  <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
-                         autocomplete="new-password">
+                  <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
                 </div>
               </div>
 
@@ -67,5 +73,7 @@
   </div>
 </main>
 </div>
+<script src="js/core.min.js"></script>
+<script src="js/script.js" async></script>
 </body>
 </html>

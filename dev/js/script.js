@@ -16,7 +16,10 @@
 
     plugins = {
       commentForm: $('#comments-form'),
-      commentAlert: $('#comment-alert')
+      commentAlert: $('#comment-alert'),
+      registerForm: $('#register-form'),
+      successAlertRegisterForm: $('#register-success-alert'),
+      dangerAlertRegisterForm: $('#register-danger-alert')
     };
 
   $(function () {
@@ -41,7 +44,6 @@
       $.ajax({
         type: 'POST',
         url: 'bat/comments-form.php',
-        data: $(this).serialize(),
         success: function (response) {
           var commentsContent = $(parent);
           var html = '';
@@ -65,6 +67,12 @@
       !input.val() ? input.addClass('has-error') : input.removeClass('has-error');
       console.log(input, !input);
       return !input.val();
+    }
+
+    // Clear Input
+    function inputClear(input) {
+      input.val('');
+      input.removeClass('has-error');
     }
 
     for (var i = 0; i < plugins.commentForm.length; i++) {
@@ -115,6 +123,65 @@
             inputText.removeClass('has-error');
           }
         })
+      });
+    }
+
+    /*
+    * Register Form
+    */
+    for (var i = 0; i < plugins.registerForm.length; i++) {
+      var form = $(plugins.registerForm[i]);
+
+      var formInputs = {
+        name: form.find($('#name')),
+        email: form.find($('#email')),
+        password: form.find($('#password')),
+        password_confirm: form.find($('#password-confirm'))
+      };
+
+
+      form.submit(function (e) {
+        e.preventDefault();
+
+        inputValidation(formInputs.name);
+        inputValidation(formInputs.email);
+        inputValidation(formInputs.password);
+        inputValidation(formInputs.password_confirm);
+
+        if ( inputValidation(formInputs.name) || inputValidation(formInputs.email) || inputValidation(formInputs.password) || inputValidation(formInputs.password_confirm) ) {
+          return false;
+        }
+
+        if ( formInputs.password.val() !== formInputs.password_confirm.val() ) {
+
+          plugins.dangerAlertRegisterForm.addClass('active');
+
+          setTimeout(function () {
+            plugins.dangerAlertRegisterForm.removeClass('active');
+          }, 1000);
+
+          return false;
+        }
+
+        $.ajax({
+          type: 'POST',
+          url: 'bat/register-form.php',
+          data: $(this).serialize(),
+          success: function (response) {
+            var myJson = JSON.parse(response);
+
+            plugins.successAlertRegisterForm.addClass('active');
+
+            setTimeout(function () {
+              plugins.successAlertRegisterForm.removeClass('active');
+            }, 1000);
+
+            inputClear(formInputs.name);
+            inputClear(formInputs.email);
+            inputClear(formInputs.password);
+            inputClear(formInputs.password_confirm);
+          }
+        });
       });
     }
   });
