@@ -2,7 +2,7 @@
 
 (function () {
   // Global variables
-  var userAgent = navigator.userAgent.toLowerCase(),
+  let userAgent = navigator.userAgent.toLowerCase(),
     initialDate = new Date(),
 
     $document = $(document),
@@ -27,6 +27,7 @@
     /*
     * Comment Form
     */
+
     // Comment`s HTML
     function commentHtml(comment) {
       return `<div class="media">
@@ -39,45 +40,61 @@
               </div>`
     }
 
+    function showAlertWithMessage(alert, message, delay = 2000) {
+      alert.html(message);
+      alert.addClass('active');
+
+      setTimeout(function () {
+        alert.removeClass('active');
+      }, delay);
+    }
+
     // Show All Comments with Ajax request
     function showComments(parent, children) {
       $.ajax({
         type: 'POST',
         url: 'bat/comments-form.php',
         success: function (response) {
-          var commentsContent = $(parent);
-          var html = '';
-          var myJson = JSON.parse(response);
+          let commentsContent = $(parent);
+          let html = '';
+          let myJson = JSON.parse(response);
 
           myJson.forEach(function (comment) {
             html += commentHtml(comment);
           });
 
           commentsContent.html(html);
-
-          for (var i = 0; i < children.length; i++) {
-            form.find(children[i]).val('')
-          }
         }
       });
     }
 
     // Validate Input
-    function inputValidation(input) {
-      !input.val() ? input.addClass('has-error') : input.removeClass('has-error');
-      console.log(input, !input);
-      return !input.val();
+    function inputsValidation(inputs) {
+      let flag = true;
+      for (let input in inputs) {
+
+        if ( !inputs[input].val() ) {
+          inputs[input].addClass('has-error');
+          flag = false
+        } else {
+          inputs[input].removeClass('has-error')
+        }
+      }
+
+      return flag;
     }
 
     // Clear Input
-    function inputClear(input) {
-      input.val('');
-      input.removeClass('has-error');
+    function inputsClear(inputs) {
+      for (let input in inputs) {
+        inputs[input].val('');
+        inputs[input].removeClass('has-error');
+      }
     }
 
-    for (var i = 0; i < plugins.commentForm.length; i++) {
+    for (let i = 0; i < plugins.commentForm.length; i++) {
 
-      var form = $(plugins.commentForm[i]);
+      let form = $(plugins.commentForm[i]);
 
       showComments('#comments', ['#userName', '#userText']);
 
@@ -85,13 +102,16 @@
       form.submit(function (e) {
         e.preventDefault();
 
-        var inputName = form.find('#userName');
-        var inputText = form.find('#userText');
+        // Form fields
+        let formInputs = {
+          inputName: form.find('#userName'),
+          inputText: form.find('#userText')
+        };
 
-        inputValidation(inputName);
-        inputValidation(inputText);
+        // Validate form inputs
+        inputsValidation(formInputs);
 
-        if ( inputValidation(inputName) || inputValidation(inputText) ) {
+        if ( !inputsValidation(formInputs) ) {
           return false
         }
 
@@ -100,27 +120,22 @@
           url: 'bat/comments-form.php',
           data: $(this).serialize(),
           success: function (response) {
-            var commentsContent = $('#comments');
-            var html = '';
-            var myJson = JSON.parse(response);
+            let commentsContent = $('#comments');
+            let html = '';
+            let myJson = JSON.parse(response);
 
             myJson.forEach(function (comment) {
               html += commentHtml(comment);
             });
 
+            // Add HTML to page
             commentsContent.html(html);
 
-            plugins.commentAlert.addClass('active');
+            // Show Access Alert
+            showAlertWithMessage(plugins.commentAlert, 'Комментарий успешно добавлен');
 
-            setTimeout(function () {
-              plugins.commentAlert.removeClass('active');
-            }, 1000);
-
-            inputName.val('');
-            inputText.val('');
-
-            inputName.removeClass('has-error');
-            inputText.removeClass('has-error');
+            // Clear Inputs
+            inputsClear(formInputs);
           }
         })
       });
@@ -129,37 +144,29 @@
     /*
     * Register Form
     */
-    for (var i = 0; i < plugins.registerForm.length; i++) {
-      var form = $(plugins.registerForm[i]);
+    for (let i = 0; i < plugins.registerForm.length; i++) {
+      let form = $(plugins.registerForm[i]);
 
-      var formInputs = {
+      let formInputs = {
         name: form.find($('#name')),
         email: form.find($('#email')),
         password: form.find($('#password')),
         password_confirm: form.find($('#password-confirm'))
       };
 
-
       form.submit(function (e) {
         e.preventDefault();
 
-        inputValidation(formInputs.name);
-        inputValidation(formInputs.email);
-        inputValidation(formInputs.password);
-        inputValidation(formInputs.password_confirm);
+        // Validate form inputs
+        inputsValidation(formInputs);
 
-        if ( inputValidation(formInputs.name) || inputValidation(formInputs.email) || inputValidation(formInputs.password) || inputValidation(formInputs.password_confirm) ) {
+        if ( !inputsValidation(formInputs) ) {
           return false;
         }
 
+        // Validate form password
         if ( formInputs.password.val() !== formInputs.password_confirm.val() ) {
-
-          plugins.dangerAlertRegisterForm.addClass('active');
-
-          setTimeout(function () {
-            plugins.dangerAlertRegisterForm.removeClass('active');
-          }, 1000);
-
+          showAlertWithMessage(plugins.dangerAlertRegisterForm, 'Пароли не совпадают');
           return false;
         }
 
@@ -170,16 +177,20 @@
           success: function (response) {
             var myJson = JSON.parse(response);
 
-            plugins.successAlertRegisterForm.addClass('active');
+            if (myJson.login) {
+              showAlertWithMessage(plugins.dangerAlertRegisterForm, 'Такой Name уже зарегистрирован, введите другой');
+              return false;
+            }
 
-            setTimeout(function () {
-              plugins.successAlertRegisterForm.removeClass('active');
-            }, 1000);
+            if (myJson.email) {
+              showAlertWithMessage(plugins.dangerAlertRegisterForm, 'Такой Email уже зарегистрирован, введите другой');
+              return false;
+            }
 
-            inputClear(formInputs.name);
-            inputClear(formInputs.email);
-            inputClear(formInputs.password);
-            inputClear(formInputs.password_confirm);
+            showAlertWithMessage(plugins.successAlertRegisterForm, 'Аккаунт успешно добавлен');
+
+            // Clear Inputs
+            inputsClear(formInputs);
           }
         });
       });

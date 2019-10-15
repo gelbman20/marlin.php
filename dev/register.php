@@ -8,6 +8,7 @@
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
+
           <div class="card-header">Register</div>
 
           <div class="card-body">
@@ -46,7 +47,7 @@
                 <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
                 <div class="col-md-6">
-                  <input id="password" type="password" class="form-control " name="password" >
+                  <input id="password" type="password" class="form-control " name="password">
                 </div>
               </div>
 
