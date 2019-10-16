@@ -74,7 +74,7 @@
   </div>
 </main>
 </div>
-<script src="js/core.min.js"></script>
-<script src="js/script.js" async></script>
-</body>
-</html>
+
+<?php
+  include_once "template-parts/footer.php"
+?>

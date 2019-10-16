@@ -31,7 +31,22 @@
     } else if ( !empty($emailRes) ) {
       echo json_encode(['email' => true]);
     } else {
-      $sql = "INSERT INTO `users` (`user_id`, `user_login`, `user_email`, `user_password`, `user_hash`, `user_ip`, `admin`) VALUES (NULL, '$user', '$email', '$password', '$password_hash', '$user_ip', false)";
+      $sql = "INSERT INTO `users` (
+                     `user_id`, 
+                     `user_login`,
+                     `user_email`, 
+                     `user_password`, 
+                     `user_hash`,
+                     `user_ip`,
+                     `admin`
+                     ) VALUES (
+                               NULL,
+                               '$user',
+                               '$email',
+                               '$password', 
+                               '$password_hash',
+                               '$user_ip', 
+                               false)";
       $pdo->exec($sql);
       $pdo = null;
       echo json_encode(['login' => false, 'email' => false]);
