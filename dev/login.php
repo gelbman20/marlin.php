@@ -1,6 +1,9 @@
 <?php
+
+  include_once 'config.php';
+
   $page_title = "Login";
-  include_once "template-parts/header.php"
+  include_once "template-parts/header.php";
 ?>
 
 <main class="py-4">
@@ -8,8 +11,10 @@
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
-          <div class="card-header">Login</div>
 
+          <div id="login-form"></div>
+
+          <div class="card-header">Login</div>
           <div class="card-body">
             <form id="login-form" action="bat/login-form.php" method="post">
 
@@ -17,11 +22,10 @@
                 <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
                 <div class="col-md-6">
-                  <input id="email" type="email" class="form-control is-invalid " name="email" autocomplete="email"
-                         autofocus>
+                  <input id="email" type="email" class="form-control" name="email" autocomplete="email" autofocus>
                   <span class="invalid-feedback" role="alert">
-                                                    <strong>Ошибка валидации</strong>
-                                                </span>
+                    <strong>Ошибка валидации</strong>
+                  </span>
                 </div>
               </div>
 

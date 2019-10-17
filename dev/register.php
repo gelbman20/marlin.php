@@ -1,4 +1,7 @@
 <?php
+
+  include_once 'config.php';
+
   $page_title = "Sign In";
   include_once "template-parts/header.php";
 ?>
@@ -28,10 +31,9 @@
 
                 <div class="col-md-6">
                   <input id="name" type="text" class="form-control" name="name">
-
-                  <!--                  <span class="invalid-feedback" role="alert">-->
-                  <!--                                                    <strong>Ошибка валидации</strong>-->
-                  <!--                                                </span>-->
+                  <span class="invalid-feedback" role="alert">
+                    <strong>Ошибка валидации</strong>
+                  </span>
                 </div>
               </div>
 
@@ -40,6 +42,9 @@
 
                 <div class="col-md-6">
                   <input id="email" type="email" class="form-control" name="email">
+                  <span class="invalid-feedback" role="alert">
+                    <strong>Ошибка валидации</strong>
+                  </span>
                 </div>
               </div>
 
@@ -48,6 +53,9 @@
 
                 <div class="col-md-6">
                   <input id="password" type="password" class="form-control " name="password">
+                  <span class="invalid-feedback" role="alert">
+                    <strong>Ошибка валидации</strong>
+                  </span>
                 </div>
               </div>
 
@@ -56,6 +64,9 @@
 
                 <div class="col-md-6">
                   <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
+                  <span class="invalid-feedback" role="alert">
+                    <strong>Ошибка валидации</strong>
+                  </span>
                 </div>
               </div>
 

@@ -1,4 +1,6 @@
 <?php
+  // Start Session
+  session_start();
 
   // Configuration
   $driver = 'mysql';

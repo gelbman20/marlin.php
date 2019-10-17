@@ -28,14 +28,22 @@
           <div class="card-header"><h3>Оставить комментарий</h3></div>
 
           <div class="card-body">
-            <form  id="comments-form" action="bat/comments-form.php" method="post">
-              <div class="form-group">
-                <label for="userName">Имя</label>
-                <input name="name" class="form-control" id="userName"/>
-              </div>
+            <form id="comments-form" action="bat/comments-form.php" method="post">
+              <?php if(empty($_SESSION['login'])) {?>
+                <div class="form-group">
+                  <label for="userName">Имя</label>
+                  <input name="name" autocomplete="name" class="form-control" id="userName"/>
+                  <span class="invalid-feedback" role="alert">
+                  <strong>Ошибка валидации</strong>
+                </span>
+                </div>
+              <?php } ?>
               <div class="form-group">
                 <label for="userText">Сообщение</label>
                 <textarea name="text" class="form-control" id="userText" rows="3"></textarea>
+                <span class="invalid-feedback" role="alert">
+                  <strong>Ошибка валидации</strong>
+                </span>
               </div>
               <button type="submit" class="btn btn-success">Отправить</button>
             </form>

@@ -6,6 +6,8 @@
 
   <title><?php echo isset($page_title) ? $page_title : "Title" ?></title>
 
+  <link rel="icon" href="img/favicon.png" type="image/x-icon">
+
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -35,12 +37,23 @@
         <!-- Right Side Of Navbar -->
         <ul class="navbar-nav ml-auto">
           <!-- Authentication Links -->
-          <li class="nav-item">
-            <a class="nav-link" href="login.php">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="register.php">Register</a>
-          </li>
+
+          <?php if(empty($_SESSION['login'])) { ?>
+            <li class="nav-item">
+              <a class="nav-link" href="login.php">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="register.php">Register</a>
+            </li>
+          <?php } else { ?>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><?php echo  $_SESSION['login'] ?></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="bat/exit.php">Exit</a>
+            </li>
+          <?php } ?>
+
         </ul>
       </div>
     </div>
