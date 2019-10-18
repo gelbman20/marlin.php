@@ -1,4 +1,5 @@
 <?php
+
   // Start Session
   session_start();
 
@@ -12,5 +13,10 @@
   $options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
 
   $dsn = "$driver:host=$server_name;dbname=$db_name;charset=$charset";
+
+  if  ( !empty(isset($_COOKIE['login'])) ) {
+    $_SESSION[ 'login' ] = $_COOKIE['login'];
+    $_SESSION[ 'email' ] = $_COOKIE['email'];
+  }
 
 

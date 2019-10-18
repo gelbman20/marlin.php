@@ -6,7 +6,7 @@
 
   <title><?php echo isset($page_title) ? $page_title : "Title" ?></title>
 
-  <link rel="icon" href="img/favicon.png" type="image/x-icon">
+  <link rel="icon" href="/img/favicon.png" type="image/x-icon">
 
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -21,7 +21,7 @@
 <div id="app">
   <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
-      <a class="navbar-brand" href="index.php">
+      <a class="navbar-brand" href="/">
         Project
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
