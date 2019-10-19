@@ -2,7 +2,6 @@
   include '../config.php';
 
   // Insert data to DB
-
   $comment_name = $_POST[ 'name' ] ? $_POST[ 'name' ] : $_SESSION[ 'login' ];
   $comment_text = $_POST[ 'text' ];
 
@@ -12,7 +11,8 @@
 
     if ( isset($_SESSION[ 'login' ]) ) {
       $user_id = $_SESSION[ 'user_id' ];
-      $sql = "INSERT INTO comments (id, user_id, name, avatar, date_time, text) VALUES (NULL, '$user_id', '$comment_name', 'img/no-user.jpg', CURRENT_TIMESTAMP, '$comment_text')";
+      $user_avatar = $_SESSION[ 'user_avatar' ];
+      $sql = "INSERT INTO comments (id, user_id, name, avatar, date_time, text) VALUES (NULL, '$user_id', '$comment_name', '$user_avatar', CURRENT_TIMESTAMP, '$comment_text')";
       $pdo->exec($sql);
     } else {
       $sql = "INSERT INTO comments (id, name, avatar, date_time, text) VALUES (NULL, '$comment_name', 'img/no-user.jpg', CURRENT_TIMESTAMP, '$comment_text')";
